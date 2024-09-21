@@ -2,7 +2,8 @@ import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:flutter/material.dart';
 
 class AuthGradientButton extends StatefulWidget {
-  const AuthGradientButton({super.key});
+  const AuthGradientButton({super.key, required this.buttonText});
+  final String buttonText;
 
   @override
   State<AuthGradientButton> createState() => _AuthGradientButtonState();
@@ -24,9 +25,9 @@ class _AuthGradientButtonState extends State<AuthGradientButton> {
               fixedSize: const Size(395, 55),
               backgroundColor: AppPallete.transparent,
               shadowColor: AppPallete.transparent),
-          child: const Text(
-            'Sign Up',
-            style: TextStyle(
+          child: Text(
+            widget.buttonText,
+            style: const TextStyle(
               fontSize: 18,
             ),
           )),

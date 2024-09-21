@@ -48,7 +48,7 @@ class _SignInPageState extends State<SignInPage> {
                   isObscureText: true,
                 ),
                 const SizedBox(height: 25),
-                const AuthGradientButton(),
+                const AuthGradientButton(buttonText: 'Sign In'),
                 const SizedBox(
                   height: 20,
                 ),
