@@ -1,5 +1,6 @@
 import 'package:blog_app/core/theme/theme.dart';
-import 'package:blog_app/features/auth/presentation/pages/sign_up.dart';
+import 'package:blog_app/features/auth/presentation/pages/sign_in.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,9 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Blog App',
       theme: AppTheme.darkThemeMode,
-      home: const SignUp(),
+      home: const SignInPage(),
     );
   }
 }
