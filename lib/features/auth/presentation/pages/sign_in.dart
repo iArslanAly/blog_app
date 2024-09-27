@@ -48,7 +48,14 @@ class _SignInPageState extends State<SignInPage> {
                   isObscureText: true,
                 ),
                 const SizedBox(height: 25),
-                const AuthGradientButton(buttonText: 'Sign In'),
+                AuthGradientButton(
+                  buttonText: 'Sign In',
+                  onPressed: () {
+                    if (formkey.currentState!.validate()) {
+                      // Handle sign in logic here
+                    }
+                  },
+                ),
                 const SizedBox(
                   height: 20,
                 ),
