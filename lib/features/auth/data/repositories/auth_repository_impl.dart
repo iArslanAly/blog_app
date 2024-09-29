@@ -10,9 +10,16 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.supabaseDataSource);
   @override
   Future<Either<Failure, String>> logInWithEmailPassword(
-      {required String email, required String password}) {
-    // TODO: implement logInWithEmailPassword
-    throw UnimplementedError();
+      {required String email, required String password}) async {
+    try {
+      final userId = await supabaseDataSource.logInWithEmailPassword(
+        email: email,
+        password: password,
+      );
+      return Future.value(right(userId as String));
+    } on ServerExceptions catch (e) {
+      return Future.value(left(Failure(message: e.message)));
+    }
   }
 
   @override
@@ -26,7 +33,7 @@ class AuthRepositoryImpl implements AuthRepository {
         name: name,
         password: password,
       );
-      return Future.value(right(userId));
+      return Future.value(right(userId as String));
     } on ServerExceptions catch (e) {
       return Future.value(left(Failure(message: e.message)));
     }
