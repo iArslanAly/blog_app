@@ -30,7 +30,7 @@ class AuthSupabaseDAtaSourceImplementation implements AuthSupabaseDataSource {
         password: password,
       );
       if (response.session == null) {
-        throw ServerExceptions('Login failed');
+        throw ServerExceptions('User is Null');
       } else {
         return UserModel.fromJson(response.user!.toJson());
       }
