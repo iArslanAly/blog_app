@@ -20,14 +20,19 @@ Future<void> initDependencies() async {
 }
 
 void _initAuth() {
-  serviceLocator.registerFactory<AuthSupabaseDataSource>(
-      () => AuthSupabaseDAtaSourceImplementation(serviceLocator()));
-  serviceLocator.registerFactory<AuthRepository>(
-      () => AuthRepositoryImpl(serviceLocator()));
-  serviceLocator.registerFactory(() => UserSignUp(serviceLocator()));
-  serviceLocator.registerFactory(() => UserLogIn(serviceLocator()));
-  serviceLocator.registerLazySingleton(() => AuthBloc(
-        userSignnUp: serviceLocator(),
-        userLogIn: serviceLocator(),
-      ));
+  // DataSource
+  serviceLocator
+    ..registerFactory<AuthSupabaseDataSource>(
+        () => AuthSupabaseDAtaSourceImplementation(serviceLocator()))
+    // Repositories
+    ..registerFactory<AuthRepository>(
+        () => AuthRepositoryImpl(serviceLocator()))
+    // Usecses
+    ..registerFactory(() => UserSignUp(serviceLocator()))
+    ..registerFactory(() => UserLogIn(serviceLocator()))
+    //Bloc
+    ..registerLazySingleton(() => AuthBloc(
+          userSignnUp: serviceLocator(),
+          userLogIn: serviceLocator(),
+        ));
 }
