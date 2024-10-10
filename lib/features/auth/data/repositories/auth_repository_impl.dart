@@ -44,4 +44,18 @@ class AuthRepositoryImpl implements AuthRepository {
       return Future.value(left(Failure(message: e.message)));
     }
   }
+
+  @override
+  Future<Either<Failure, User?>> currentUser() async {
+    try {
+      final user = await supabaseDataSource.getcurrentUseData();
+      if (user == null) {
+        return left(Failure(message: 'User is null'));
+      } else {
+        return right(user);
+      }
+    } on ServerExceptions catch (e) {
+      return left(Failure(message: e.message));
+    }
+  }
 }
