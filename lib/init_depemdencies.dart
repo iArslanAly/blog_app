@@ -1,3 +1,6 @@
+import 'package:get_it/get_it.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:blog_app/core/cubits/app_user/app_user_cubit.dart';
 import 'package:blog_app/core/secrets/app_supabase.dart';
 import 'package:blog_app/features/auth/data/dataSources/auth_supabase_data_source.dart';
@@ -7,12 +10,16 @@ import 'package:blog_app/features/auth/domain/usecases/current_user.dart';
 import 'package:blog_app/features/auth/domain/usecases/user__log_in.dart';
 import 'package:blog_app/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:blog_app/features/blog/data/model/data_sources/blog_remote_data_source.dart';
+import 'package:blog_app/features/blog/data/repositories/blog_repositories_impl.dart';
+import 'package:blog_app/features/blog/domain/repositories/blog_repositories.dart';
+import 'package:blog_app/features/blog/domain/usecases/upload_blog.dart';
+import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 
 final serviceLocator = GetIt.instance;
 Future<void> initDependencies() async {
   _initAuth();
+  _initBlog();
   final supabaseClient = await Supabase.initialize(
     url: AppSupabase.supabaseUrl,
     anonKey: AppSupabase.supabaseAnonKey,
@@ -42,5 +49,26 @@ void _initAuth() {
           userLogIn: serviceLocator(),
           currentUser: serviceLocator(),
           appUserCubit: serviceLocator(),
+        ));
+}
+
+void _initBlog() {
+  // Datasource
+  serviceLocator
+    ..registerFactory<BlogRemoteDataSource>(
+      () => BlogRemoteDataSourceImpl(
+        serviceLocator(),
+      ),
+    )
+    // Repositories
+    ..registerFactory<BlogRepositories>(() => BlogRepositoriesImpl(
+          serviceLocator(),
+        ))
+    // Usecses
+    ..registerFactory(() => UploadBlog(serviceLocator()))
+
+    //Bloc
+    ..registerLazySingleton(() => BlogBloc(
+          uploadBlog: serviceLocator(),
         ));
 }

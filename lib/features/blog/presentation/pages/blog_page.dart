@@ -2,6 +2,7 @@ import 'package:blog_app/features/blog/presentation/pages/add_new_page.dart';
 import 'package:flutter/material.dart';
 
 class BlogPage extends StatelessWidget {
+  static route() => MaterialPageRoute(builder: (context) => const BlogPage());
   const BlogPage({super.key});
 
   @override
@@ -14,7 +15,7 @@ class BlogPage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(AddNewBlogPage.route());
             },
-            icon: const Icon(Icons.add_circle),
+            icon: const Icon(Icons.add),
           )
         ],
       ),
