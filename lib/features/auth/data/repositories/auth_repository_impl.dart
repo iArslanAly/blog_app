@@ -1,3 +1,4 @@
+import 'package:blog_app/core/connection/internet_checker.dart';
 import 'package:blog_app/core/error/exceptions.dart';
 import 'package:blog_app/core/error/failure.dart';
 import 'package:blog_app/features/auth/data/dataSources/auth_supabase_data_source.dart';
@@ -9,7 +10,9 @@ import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 class AuthRepositoryImpl implements AuthRepository {
   late final AuthSupabaseDataSource supabaseDataSource;
 
-  AuthRepositoryImpl(this.supabaseDataSource);
+  AuthRepositoryImpl(
+    this.supabaseDataSource,
+  );
 
   @override
   Future<Either<Failure, User>> logInWithEmailPassword(

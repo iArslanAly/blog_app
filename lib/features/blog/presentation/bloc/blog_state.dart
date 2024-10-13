@@ -13,9 +13,11 @@ final class BlogFailure extends BlogState {
   BlogFailure(this.error);
 }
 
-final class BlogSuccess extends BlogState {
-  // ignore: prefer_typing_uninitialized_variables
-  final success;
+final class BlogSuccess extends BlogState {}
 
-  BlogSuccess(this.success);
+final class BlogDsiplaySuccess extends BlogState {
+  final List<Blog> blogs;
+
+  BlogDsiplaySuccess({required this.blogs});
+  List<Object> get props => [blogs];
 }

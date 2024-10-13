@@ -1,3 +1,4 @@
+import 'package:blog_app/features/blog/domain/usecases/get_all_blogs.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -66,9 +67,10 @@ void _initBlog() {
         ))
     // Usecses
     ..registerFactory(() => UploadBlog(serviceLocator()))
-
+    ..registerFactory(() => GetAllBlogs(serviceLocator()))
     //Bloc
     ..registerLazySingleton(() => BlogBloc(
           uploadBlog: serviceLocator(),
+          getAllBlogs: serviceLocator(),
         ));
 }
