@@ -74,6 +74,8 @@ class AuthSupabaseDAtaSourceImplementation implements AuthSupabaseDataSource {
       } else if (currentUserSession == null) {
         throw ServerExceptions('User is null');
       }
+    } on AuthException catch (e) {
+      throw ServerExceptions(e.message);
     } catch (e) {
       throw ServerExceptions(e.toString());
     }
